@@ -1,24 +1,21 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Face Traking</title>
-    <style>
-        video,canvas{
-            position:absolute;
-            border:1xp solid red;
-        }
-
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video | Reconhecimento Facial com FaceAPI</title>
+    <link rel="stylesheet" href="./assets/css/index.css">
 </head>
-        <body>
-
-            <video id="video" width ="320" height ="240" preload autoplay loop muted> </video>
-            <canvas id="canvas " width="320" height="240" > </canvas>
-
-<script src=" trancking-min.js"></script>
-<script src= "data/face-min.js"></script>
-
-
-
-
+<body>
+    <video
+        autoplay
+        id="cam"
+        width="720"
+        height="560"
+        muted
+    ></video>
+    <script src="./assets/lib/face-api/face-api.min.js"></script>
+    <script src="./assets/js/index.js"></script>
 </body>
 </html>
