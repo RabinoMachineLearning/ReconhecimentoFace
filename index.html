@@ -1,21 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Video | Reconhecimento Facial com FaceAPI</title>
-    <link rel="stylesheet" href="./assets/css/index.css">
-</head>
-<body>
-    <video
-        autoplay
-        id="cam"
-        width="720"
-        height="560"
-        muted
-    ></video>
-    <script src="./assets/lib/face-api/face-api.min.js"></script>
-    <script src="./assets/js/index.js"></script>
-</body>
+
+<html>   
+    <head>
+<title> FaceApi</title>
+
+<script src="/models"></script>
+<script src="/node_modules/face-api.js/dist/face-api.js"></script>
+<script src="/models/face_recognition_model-weights_manifest.json"></script>
+<script src="/models/face_landmark_68_tiny_model-weights_manifest.json"></script>
+<script src="/node_modules/canvas/lib/canvas.js"></script>
+<script src="/models/face_expression_model-weights_manifest.json"></script>
+<script src=" /models/face_expression_model-weights_manifest"></script>
+<script src="/faceapi.js"></script>
+<script src="/node_modules/canvas/src/canva" ></script>
+<script src="/node_modules/canvas/lib/canvas.js" ></script>
+<script src="/labels/ezequiel"></script>
+
+
+
+
+
+
+
+
+<style>
+    body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+canvas {
+    position: absolute;
+}
+</style>
+<style>
+
+    canvas {
+        position: absolute;
+    }
+</style>
+    </head>
+    <body>
+        <video id="video" width="720" height="560" autoplay muted></video>
+        
+
+        <script src="tracking-min.js"></script>
+        <script src="data/face-min.js"></script>
+        <script src="tracking.js"></script>
+        <script>
+
+
+
+            function init(){
+                const video = document.getElementById('video')
+                const canvas = document.getElementById('canvas')
+                const tracker = new tracking.ObjectTracker('face')
+                tracking.track('#video', tracker, { camera: true })  
+                tracker.on('track', event =>{
+                })
+            }
+         
+          </script>
+
+
+          <script>
+
+video.addEventListener('play', async () => {
+   
+   const canvas = faceapi.createCanvasFromMedia(video)
+   const canvasSize = {
+       width: video.width,
+       height: video.height
+   }
+
+   document.body.appendChild(canvas);
+   
+   setInterval(async () => {
+       const detections = await faceapi
+           .detectAllFaces(
+               video,
+               new faceapi.TinyFaceDetectorOptions())
+                .withFaceLandmarks()
+                .withFaceExpressions();
+
+       const resizedDetections = faceapi.resizeResults(detections, canvasSize);
+       
+
+       canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+       faceapi.draw.drawDetections(canvas, resizedDetections);
+       
+        const age = resizedDetections[0].age;
+        const interpolatedAge = interpolateAgePredictions(age);
+  
+        console.log (interpolateAge);
+
+
+    }, 100);
+});
+
+
+function interpolateAgePredictions(age) {
+    predictedAges = [age].concat(predictedAges).slice (0, 30);
+    const avgPredictedAge = 
+    predictedAges.reduce ((total, a ) => total + a) /  predictedAges.lengh;
+    return avgPredictedAge;
+}
+
+
+
+          </script>
+        <script src="index.js"></script>
+        <script src= "css.css"></script>
+        <script src= "models" src="indexx.js"></script>
+    </body>
 </html>
+
+
+
